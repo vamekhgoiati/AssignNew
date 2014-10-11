@@ -1,0 +1,2 @@
+serviceClass: com.myproject.institutions.client.FIManager
+path: D4C915C389B66977809ACD183380BF36.gwt.rpc

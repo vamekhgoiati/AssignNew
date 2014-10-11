@@ -1,0 +1,2 @@
+serviceClass: com.myproject.institutions.client.XMLImportExport
+path: 47B11ABEB3B7382485CBF170D501C9F3.gwt.rpc
