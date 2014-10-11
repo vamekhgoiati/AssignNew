@@ -14,7 +14,7 @@ public interface FIManagerAsync {
 
 	void deleteInstitution(Institution inst, AsyncCallback<Boolean> callback);
 
-	void getID(String code, String name, AsyncCallback<Integer> callback);
+	void getID(String code, AsyncCallback<Integer> callback);
 
 	void getInstitutionByID(int ID, AsyncCallback<Institution> callback);
 
