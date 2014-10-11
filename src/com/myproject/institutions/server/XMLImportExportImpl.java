@@ -131,6 +131,7 @@ public class XMLImportExportImpl extends RemoteServiceServlet implements XMLImpo
 			    
 			    for(Institution inst : institutions.getInstitutions()){
 			    	if(FIManager.getInstitutionByCode(inst.getCode()) == null){
+			    		if(FITypeManager.getTypeByID(inst.getType().getId()) == null)FITypeManager.createType(inst.getType());
 			    		FIManager.createInstitution(inst);
 			    	} else {
 			    		FIManager.updateInstitution(inst);
@@ -147,25 +148,14 @@ public class XMLImportExportImpl extends RemoteServiceServlet implements XMLImpo
 	public void XMLImport(String filename){
 		
 		try {
-			JAXBContext jaxbContextInstitutionTypes = JAXBContext.newInstance(InstitutionTypes.class);
-		    Unmarshaller jaxbUnmarshaller = jaxbContextInstitutionTypes.createUnmarshaller();
-		    InstitutionTypes institutionTypes = (InstitutionTypes) jaxbUnmarshaller.unmarshal(new File(filename));
 		    
 		    JAXBContext jaxbContextInstitutions = JAXBContext.newInstance(Institutions.class);
-		    jaxbUnmarshaller = jaxbContextInstitutions.createUnmarshaller();
+		    Unmarshaller jaxbUnmarshaller = jaxbContextInstitutions.createUnmarshaller();
 		    Institutions institutions = (Institutions) jaxbUnmarshaller.unmarshal(new File(filename));
-		    
-		    
-		    for(InstitutionType type : institutionTypes.getInstitutionTypes()){
-		    	if(FITypeManager.getTypeByCode(type.getCode()) == null){
-		    		FITypeManager.createType(type);
-		    	} else {
-		    		FITypeManager.updateType(type);
-		    	}
-		    }
 		    
 		    for(Institution inst : institutions.getInstitutions()){
 		    	if(FIManager.getInstitutionByCode(inst.getCode()) == null){
+		    		if(FITypeManager.getTypeByCode(inst.getType().getCode()) == null)FITypeManager.createType(inst.getType());
 		    		FIManager.createInstitution(inst);
 		    	} else {
 		    		FIManager.updateInstitution(inst);

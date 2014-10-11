@@ -51,8 +51,7 @@ import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
  */
 public class Assign2 implements EntryPoint {
 
-	private static final String UPLOAD_ACTION_URL = GWT.getModuleBaseURL()
-			+ "upload";
+	private static final String UPLOAD_ACTION_URL = "assign2/upload";
 
 	private VerticalPanel mainHelper;
 	private TabPanel mainTabPanel;
@@ -130,7 +129,7 @@ public class Assign2 implements EntryPoint {
 		tb.setName("textBoxFormElement");
 		panel.add(tb);
 
-		FileUpload upload = new FileUpload();
+		final FileUpload upload = new FileUpload();
 		upload.setName("uploadFormElement");
 		panel.add(upload);
 
@@ -158,7 +157,7 @@ public class Assign2 implements EntryPoint {
 				// type
 				// text/html, we can get the result text here (see the FormPanel
 				// documentation for further explanation).
-				Window.alert(event.getResults());
+				fillLists();
 			}
 		});
 

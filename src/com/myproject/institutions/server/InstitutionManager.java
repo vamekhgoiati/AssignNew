@@ -88,13 +88,12 @@ public class InstitutionManager extends RemoteServiceServlet implements FIManage
 	}
 	
 	
-	public int getID(String code, String name){
+	public int getID(String code){
 		
 		int ID = -1;
 		try {
 			PreparedStatement statement = conn.prepareStatement("SELECT ID FROM Institutions WHERE Code = ? AND Name = ?;");
 			statement.setString(1, code);
-			statement.setString(2, name);
 			ResultSet rs = statement.executeQuery();
 			if(rs.next()){
 				ID = rs.getInt("ID"); 

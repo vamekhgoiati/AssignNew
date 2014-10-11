@@ -16,7 +16,7 @@ public interface FIManager extends RemoteService{
 	
 	public boolean deleteInstitution(Institution inst);
 	
-	public int getID(String code, String name);
+	public int getID(String code);
 	
 	public Institution getInstitutionByID(int ID);
 	

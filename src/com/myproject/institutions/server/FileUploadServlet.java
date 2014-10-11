@@ -28,12 +28,11 @@ import com.google.appengine.api.appidentity.AppIdentityServicePb.SigningService.
 @WebServlet("upload")
 public class FileUploadServlet extends HttpServlet {
 
-	private static final String UPLOAD_DIRECTORY = "C:\\Users\\vamekh\\Desktop";
+	private static final String UPLOAD_DIRECTORY = "/uploaded";
 
 	private static final String PROPERTIES_FILE = "WEB-INF/classes/uploadprogress.properties";
 	private static final String FILE_SEPERATOR = System
 			.getProperty("file.separator");
-	private String uploadDirectory = "C:\\Users\\vamekh\\Desktop";
 	private XMLImportExportImpl XMLManager = new XMLImportExportImpl();
 
 	@Override
@@ -64,17 +63,19 @@ public class FileUploadServlet extends HttpServlet {
 						fileName = FilenameUtils.getName(fileName);
 					}
 					String contentType = item.getContentType();
-					if(!contentType.equals("text/xml")){
+					if (!contentType.equals("text/xml")) {
 						throw new IllegalArgumentException();
 					}
-					fileName = getServletContext().getRealPath(
-							"/uploadedFiles/" + fileName);
-					byte[] data = item.get();
-					FileOutputStream fileOutSt = new FileOutputStream(fileName);
-					fileOutSt.write(data);
-					fileOutSt.close();
-					XMLManager.XMLImport(fileName);
-					System.out.print("File Uploaded Successfully!");
+
+					File uploadedFile = new File(getServletContext().getRealPath(UPLOAD_DIRECTORY), fileName);
+					
+						item.write(uploadedFile);
+						response.setStatus(HttpServletResponse.SC_CREATED);
+						response.getWriter().print(
+								"The file was created successfully.");
+						response.flushBuffer();
+					XMLManager.XMLImport(uploadedFile.getAbsolutePath());
+					//System.out.print("File Uploaded Successfully!");
 				}
 			}
 		} catch (Exception e) {

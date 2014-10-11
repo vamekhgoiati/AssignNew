@@ -22,9 +22,10 @@ public class InstitutionTypeManager extends RemoteServiceServlet implements FITy
 	public boolean createType(InstitutionType type){
 		
 		try {
-			PreparedStatement statement = conn.prepareStatement("INSERT INTO Institution_types (Code, Name) VALUES (?, ?);");
-			statement.setString(1, type.getCode());
-			statement.setString(2, type.getName());
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO Institution_types " + ((type.getId() == 0) ? "(Code, Name)" : "") + " VALUES (" + ((type.getId() > 0) ? "?, " : "") + "?, ?);");
+			statement.setString(2, type.getCode());
+			statement.setString(3, type.getName());
+			if(type.getId() > 0)statement.setInt(1, type.getId());
 			statement.executeUpdate();
 			return true;
 		} catch (SQLException e) {

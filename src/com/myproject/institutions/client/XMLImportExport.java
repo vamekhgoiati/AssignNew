@@ -11,5 +11,9 @@ public interface XMLImportExport extends RemoteService{
 	public void XMLImport();
 	
 	public void XMLExport();
+	
+	public void XMLExport(String filename);
+
+	void XMLImport(String filename);
 
 }
